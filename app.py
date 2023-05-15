@@ -1,5 +1,8 @@
 from fastapi import FastAPI
+from typing import Literal
 from fastapi.middleware.cors import CORSMiddleware
+from models import Admin, Doctor, Patient
+import db
 
 
 app = FastAPI()
@@ -29,7 +32,28 @@ def postData(data):
     except:
         return {"inserted": "false"}
 
-
 @app.get("/get-all-data")
 def getData():
     return storedData
+
+    
+@app.post("/create-adminuser")
+async def createAdminUser(data: Admin):
+    res = await db.createAdminUser(data=data)
+    return{"user creation status": res} 
+
+@app.post("/create-doctor")
+async def createDoctor(data: Doctor):
+    res = await db.createDoctor(data=data)
+    return{"user creation status": res}
+
+@app.post("/create-patient")
+async def createPatient(data: Patient):
+    res = await db.createPatient(data=data)
+    return{"user creation status": res}
+
+@app.post("/login")
+async def initiateLogin(user_id: str, password: str):
+    res = await db.loginUser(user_id, password) 
+    if res["loginStatus"] == True:
+        return res["data"]

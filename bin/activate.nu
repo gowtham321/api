@@ -31,7 +31,7 @@ export-env {
     }
 
     let is_windows = ($nu.os-info.name | str downcase) == 'windows'
-    let virtual_env = '/Users/gowtham/Documents/Training/backend/fastapi'
+    let virtual_env = '/Users/gowtham/Documents/lifo/backend-api'
     let bin = 'bin'
     let path_sep = (char esep)
     let path_name = if $is_windows {
